@@ -41,11 +41,16 @@ iag.display = function(evt) {
 	writeScore('satisfaction',satisfaction);
 	
 	// Top Jobs
+	
+	// Collapse the keys and values of the jobtypes object for sorting convenience
 	var jobs = [];
 	$.each(course_stats['jobtype'], function(k,v){ v['name'] = k;
-												   jobs.push(v); });
+										   jobs.push(v); });
+	
+	// Underscore.js has a nice sortBy...
 	var sorted_jobs = _.sortBy(jobs, function(obj){ return obj['% of students'];  });
 	
+	// Grab the highest valued 3 jobtypes and write some list items
 	$.each(sorted_jobs.slice(-3).reverse(), function(){
 		$('#jobs ul').append('<li>'+this.name+' : '+this['% of students']+'%</li>');
 	});

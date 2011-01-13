@@ -1,0 +1,116 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+		
+
+        <title>IAG Widget Demo</title>
+		
+		<style type="text/css">
+			#course_select {
+				display:none;
+			}
+			
+			label {
+				display:block;
+				margin:0 0 5px 0;
+				font-weight:bold;
+			}
+			
+			input[type="text"], select, textarea {
+				border:1px solid #000;
+				padding:1px 1px 1px 2px;
+			}
+			
+			input[type="text"]:focus, textarea:focus {
+				background:#efefef;
+			}
+			
+			input[type="submit"] {
+				background:#000;
+				border:1px solid #000;
+				color:#fff;
+				text-transform:uppercase;
+				font-weight:bold;
+			}
+			
+			input[type="submit"]:focus {
+				color:#8cc63f;
+			}
+			
+			option:hover {
+				background:#000;
+			}
+		</style>
+		
+		<script type="text/javascript" src="./widgets/lib/jquery/jquery-1.4.4.js"></script>
+        <script type="text/javascript">
+        	var iagwidget_immediate_load = true;
+
+        	$(document).ready(function(){
+				// Setup the widget demos
+				$('#fetch_courses').click(function(evt){
+					$('select[name=course]').empty();
+					$.getJSON('/api/ukprn/' + $('input[name=provider]').val() + '.json', function(data){
+						$.each(data.courses, function(k,v){
+							$('select[name=course]').append('<option value="'+k+'">'+k+'</option>');
+						});
+						$('#course_select').show();
+					});
+					return false; // avoid a spurious form submit
+				});
+				
+                $('#widgetdemo').submit(function () {
+					// remove any previous demos
+					$('iframe').remove();
+					
+					var widgetname = $('select[name=widget]').val();
+					var insert_before = null;
+					var script = null;
+                    switch ($('#widgetdemo select[name=widget]').val()) {
+                        case 'courselabel':
+						    insert_before = document.getElementById('demotarget');
+                            // Build and insert the script tag
+                            script = document.createElement('script');
+							script.type = "text/javascript";
+                            script.src = "/widgets/iagwidget.js";
+							var config = '{"ukprn":"'+ $('input[name=provider]').val()+'",';
+							config += '"widget":"courselabel",';
+							config += '"course":"' + $('select[name=course]').val()+'"}';
+							console.log(config);
+                            script.text = config;
+                            insert_before.parentNode.insertBefore(script, insert_before);
+                            break;
+                    }
+                    return false;
+                });
+            });
+        </script>
+	</head>
+
+	<body>
+        
+		    
+		    <h2>Widget Demos</h2>
+            <p>If you want to see a widget in action, use this form.</p>
+		    <form id="widgetdemo">
+		    	<label for="widget">Choose a widget</label>
+			    <select name="widget">
+				    <option value="courselabel">Course Label</option>
+			    </select>
+				
+			    <label for="provider">UKPRN code for the course provider</label>
+			    <input class="textfield" type="text" name="provider" value="10000886"/><button id="fetch_courses">Load Courses</button>
+				
+				<div id="course_select">
+					<label for="course">Choose a course</label>
+				    <select name="course">
+					    <option value="(L3.62) Marketing">(L3.62) Marketing</option>
+				    </select>
+				    <input type="submit" value="Go"/>
+				</div>
+		    </form>	
+			
+			<div id="demotarget"></div>
+		    
+	</body>
+</html>

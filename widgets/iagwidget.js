@@ -101,5 +101,13 @@
   window.attachEvent('onload', function() { $.f.init(thisScript); });
  }
  
+ // Run immediately if asked to
+ if (typeof window.iagwidget_immediate_load !== 'undefined') {
+    if (window.iagwidget_immediate_load) {
+        $.f.init(thisScript);
+    } 
+ }
+
+ 
  
 })();

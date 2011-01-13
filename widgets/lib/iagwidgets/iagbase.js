@@ -1,14 +1,22 @@
 /**
- * @author rupert
+ * Base library for IAG Widgets
+ * 
+ * @author rupert@neontribe.co.uk
  */
 
+// We'll keep ourselves to a single global footprint
 window["iag"] = {'data':null};
 var iag = window["iag"];
 
-iag.dispatcher = $({});
-
+// Namespace for utilities
 iag.utils = {};
 
+/**
+ * Grab a query string variable from the calling url
+ * Unescape it on the way
+ * 
+ * @param {Object} name
+ */
 iag.utils.getParameterByName = function (name) {
 	name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
 	var regexS = "[\\?&]"+name+"=([^&#]*)";
@@ -17,6 +25,6 @@ iag.utils.getParameterByName = function (name) {
 	if( results === null ) {
 		return "";
 	} else {
-		return results[1];
+		return unescape(results[1]);
 	}
 };
