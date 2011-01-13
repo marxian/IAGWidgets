@@ -28,8 +28,8 @@
           
           $.w = document.createElement('IFRAME');
           var base_url = $.config.base_url ? $.config.base_url : '.';
-          var widget_url = "/widgets/scorecard/scorecard.html";
-          var iframe_style = "border: medium none; width: 200px; height: 200px; overflow: hidden;";
+          var widget_url = null;
+          var iframe_style = null;
 
           if ($.config.widget) {
             switch ($.config.widget) {
@@ -39,7 +39,7 @@
                     break;
                 case 'courselabel':
                     widget_url = "/widgets/courselabel/courselabel.html";
-                    iframe_style = "border:0; width: 200px; height: 65px; overflow-y: hidden; overflow-x: hidden; padding:0; margin:0;";
+                    iframe_style = "border: 2px solid black; width: 100%; height: 430px; overflow: hidden;";
                     break;
             }
           }

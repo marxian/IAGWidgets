@@ -20,7 +20,7 @@ iag.display = function(evt) {
 		$('#' + id + ' > span.score').html(formatPercentage(val));
 	}
 	
-	$('#name').html(iag.data.name);
+	$('#provider').html(iag.data.name);
 	$('#course').html(iag.course_id);
 
 	var course_stats = iag.data.courses[iag.course_id]['First degree']['Full-time'];
