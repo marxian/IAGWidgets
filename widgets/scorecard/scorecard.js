@@ -36,6 +36,10 @@ iag.display = function(evt) {
 	var positive = 100 - (destination_stats['Assumed to be unemployed']['First degree'] + destination_stats['Not available for work or study']['First degree'])
 	writeScore('destination', positive);
 	
+	// Satisfaction
+	var satisfaction = (course_stats['satisfaction']['Q22']['Actual value']);
+	writeScore('satisfaction',satisfaction);
+	
 	// Top Jobs
 	var jobs = [];
 	$.each(course_stats['jobtype'], function(k,v){ v['name'] = k;
