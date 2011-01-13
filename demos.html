@@ -76,7 +76,6 @@
 							var config = '{"ukprn":"'+ $('input[name=provider]').val()+'",';
 							config += '"widget":"courselabel",';
 							config += '"course":"' + $('select[name=course]').val()+'"}';
-							console.log(config);
                             script.text = config;
                             insert_before.parentNode.insertBefore(script, insert_before);
                             break;
