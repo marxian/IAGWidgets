@@ -1,0 +1,34 @@
+div#label {
+	width: 100%;
+}
+
+div#label > div {
+	width: 15%;
+	float: left;
+	margin: 5px 5px 5px 5px;
+	padding: 3px 3px 3px 3px;
+	height: 80px;
+	text-align: center;
+}
+
+div#success {
+	background: #ea4e44;
+}
+
+div#satisfaction {
+	background: #93c11a;
+}
+
+div#destination {
+	background: #a693c6;
+}
+
+div#wage {
+	background: #72c5c6;
+}
+
+div#quality {
+	background: #f9b231;
+}
+
+
