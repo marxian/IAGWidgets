@@ -7,11 +7,11 @@ div#label {
 }
 
 div#label > div {
-	width: 15%;
+	width: 16%;
 	float: left;
-	margin: 5px 5px 5px 5px;
+	margin: 3px 3px 3px 3px;
 	padding: 10px 3px 3px 3px;
-	height: 130px;
+	height: 80px;
 	text-align: center;
 	-webkit-border-radius: 20px;
 	-moz-border-radius: 20px;
