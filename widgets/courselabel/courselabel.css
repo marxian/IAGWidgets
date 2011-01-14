@@ -43,8 +43,7 @@ div#quality {
 }
 div#score {
 	font: 120% Verdana, Arial, Helvetica, sans-serif;
-	font-weight: bolder;
-        background: #FFF;
+        color: #FFF;
         font-weight: 900;
 }
 h1#provider {
