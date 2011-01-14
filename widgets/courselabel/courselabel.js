@@ -21,14 +21,12 @@ iag.display = function(evt) {
 	}
 	
 	var getField = function (obj,path,default_result) {
-	    var cur_obj = obj;
-	    var abort = false;
+	    var cur_obj = obj;	    
 	    $.each(path, function(i) {
-	        if (abort) { continue; }
 	        var segment = path[i];
 	        if (typeof(cur_obj[segment]) == 'undefined') {
 	            cur_obj = default_result;
-	            abort = true;
+	            return false;
 	        } else {
 	            cur_obj = cur_obj[segment];
 	        }
