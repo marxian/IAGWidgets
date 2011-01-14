@@ -161,3 +161,26 @@ parse_files(files) do |fieldnames,row,json|
  end
 end
 
+files = ["jobcat.csv"]
+parse_files(files) do |fieldnames,row,json|
+ institution,subject,category,*rest = row
+ next unless category == "Graduate job"
+ node = ensure_hashes(json,"courses",subject,"graduatejob","Full-time")
+ rest.each_with_index do |value,i|
+   break if i == 6
+   next unless value
+   node[fieldnames[i+4]] = clean_value(value)
+ end
+end
+
+files = ["jobcat.csv"]
+parse_files(files) do |fieldnames,row,json|
+ institution,subject,category,*rest = row
+ next unless category == "Graduate job"
+ node = ensure_hashes(json,"courses",subject,"graduatejob","Part-time")
+ rest.each_with_index do |value,i|
+   next if i < 6
+   next unless value
+   node[fieldnames[i+4]] = clean_value(value)
+ end
+end

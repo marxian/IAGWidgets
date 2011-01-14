@@ -20,10 +20,38 @@ iag.display = function(evt) {
 		$('#' + id + ' > span.score').html(formatPercentage(val));
 	}
 	
-	var calculators = {success : function(obj){ return 100 - (obj['First degree']['Full-time']['continuation']['Dormant'] + obj['First degree']['Full-time']['continuation']['Left without award']);},
-					   destination: function(obj){ return 100 - (obj['destinations']['Full-time']['Assumed to be unemployed']['First degree'] + obj['destinations']['Full-time']['Not available for work or study']['First degree']);},
-					   satisfaction: function(obj){ return (obj['First degree']['Full-time']['satisfaction']['Q22']['Actual value']); }
-					  };
+	var get_field = function (obj,path,default_result) {
+	    var cur_obj = obj;
+	    $.each(path, function(i) {
+	        var segment = path[i];
+	        if (typeof(cur_obj[segment]) == 'undefined') {
+	            return default_result;
+	        } else {
+	            cur_obj = cur_obj[segment];
+	        }
+	    });
+	    return cur_obj;
+	}
+	
+	var calculators = {
+        destination: function(obj) {
+            first_attempt = get_field(obj, ['graduatejob', 'Full-time', 'First degree'], 0);
+            if (first_attempt > 0) {
+                return first_attempt;
+            } else {
+                second_attempt = get_field(obj, ['graduatejob', 'Full-time', 'Other undergraduate'], 0)
+                return second_attempt;
+            }
+        },
+        success: function(obj) {
+            firsts = get_field(obj,['First degree','Full-time','achievement','First class honours'],0);
+            upper_seconds = get_field(obj,['First degree','Full-time','achievement','Upper second class honours'],0);
+            return firsts + upper_seconds;
+        },
+        satisfaction: function(obj) {
+            return (obj['First degree']['Full-time']['satisfaction']['Q22']['Actual value']);
+        }
+    };
 	
 	/**
 	 * Calculate a score
