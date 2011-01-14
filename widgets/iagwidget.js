@@ -39,7 +39,7 @@
                     break;
                 case 'courselabel':
                     widget_url = "/widgets/courselabel/courselabel.html";
-                    iframe_style = "border: 0px dashed #C93; width: 40%; height: 130px; overflow: hidden;";
+                    iframe_style = "webkit-border-radius: 20px; moz-border-radius: 20px; border-radius: 20px; border: 0px dashed #C93; width: 40%; height: 180px; overflow: hidden;";
                     break;
             }
           }
