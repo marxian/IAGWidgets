@@ -1,3 +1,7 @@
+body {
+background: #CCC;
+font: 100% Verdana, Arial, Helvetica, sans-serif;
+}
 div#label {
 	width: 100%;
 }
@@ -6,9 +10,13 @@ div#label > div {
 	width: 15%;
 	float: left;
 	margin: 5px 5px 5px 5px;
-	padding: 3px 3px 3px 3px;
-	height: 80px;
+	padding: 10px 3px 3px 3px;
+	height: 130px;
 	text-align: center;
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+	border: 2px solid #FFF;
 }
 
 div#success {
