@@ -30,11 +30,11 @@ catch (e) {
 if (ukprn && course && insert_before) {
 	script = document.createElement('script');
 	script.type = "text/javascript";
-        script.src = "http://localhost/widgets/iagwidget.js";
+    script.src = "http://localhost/widgets/iagwidget.js";
 	var config = '{"ukprn":"'+ ukprn +'",';
 	config += '"widget":"courselabel",';
 	config += '"base_url":"http://localhost",';
 	config += '"course":"' + course +'"}';
-        script.innerHTML = config;
-        insert_before.parentNode.insertBefore(script, insert_before);
+    script.innerHTML = config;
+    insert_before.parentNode.insertBefore(script, insert_before);
 }
