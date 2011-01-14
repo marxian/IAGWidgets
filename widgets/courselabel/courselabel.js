@@ -17,10 +17,10 @@ iag.display = function(evt) {
 	}
 	
 	var writeScore = function (id, val) {
-		$('#' + id + ' > span.score').html(formatPercentage(val));
+		$('#' + id + ' > span.score').html(val);
 	}
 	
-	var get_field = function (obj,path,default_result) {
+	var getField = function (obj,path,default_result) {
 	    var cur_obj = obj;
 	    $.each(path, function(i) {
 	        var segment = path[i];
@@ -34,22 +34,32 @@ iag.display = function(evt) {
 	}
 	
 	var calculators = {
-        destination: function(obj) {
-            first_attempt = get_field(obj, ['graduatejob', 'Full-time', 'First degree'], 0);
+        destination: function(obj,default_value) {
+            var first_attempt = getField(obj, ['graduatejob', 'Full-time', 'First degree'], 0);
             if (first_attempt > 0) {
-                return first_attempt;
+                return formatPercentage(first_attempt);
             } else {
-                second_attempt = get_field(obj, ['graduatejob', 'Full-time', 'Other undergraduate'], 0)
-                return second_attempt;
+                var second_attempt = getField(obj, ['graduatejob', 'Full-time', 'Other undergraduate'], default_value);
+                return formatPercentage(second_attempt);
             }
         },
-        success: function(obj) {
-            firsts = get_field(obj,['First degree','Full-time','achievement','First class honours'],0);
-            upper_seconds = get_field(obj,['First degree','Full-time','achievement','Upper second class honours'],0);
-            return firsts + upper_seconds;
+        success: function(obj,default_value) {
+            var firsts = getField(obj,['First degree','Full-time','achievement','First class honours'],0);
+            var upper_seconds = getField(obj,['First degree','Full-time','achievement','Upper second class honours'],0);
+            var success = firsts + upper_seconds;
+            if (success == 0) {
+                return default_value;
+            } else {
+                return formatPercentage(success);
+            }
         },
-        satisfaction: function(obj) {
-            return (obj['First degree']['Full-time']['satisfaction']['Q22']['Actual value']);
+        satisfaction: function(obj,default_value) {
+            var satisfaction = getField(obj,['First degree','Full-time','satisfaction','Q22','Actual value'],0)
+            if (satisfaction > 0) {
+                return formatPercentage(satisfaction);
+            } else {
+                return default_value;
+            }
         }
     };
 	
@@ -62,8 +72,7 @@ iag.display = function(evt) {
 	 */			
 	var calculate = function(calc, data, default_result) {
 		try {
-
-			return calculators[calc](data);
+			return calculators[calc](data,default_result);
 		} catch(err) {
 			console.log(calc);
 			return default_result;
@@ -73,7 +82,7 @@ iag.display = function(evt) {
 	$('#provider').html(iag.data.name);
 	$('#course').html(iag.course_id);
     var course_stats = iag.data.courses[iag.course_id];
-	console.log(course_stats);
+
 	// Success
 	writeScore('success', calculate('success', course_stats, '?'));
 	
@@ -85,25 +94,23 @@ iag.display = function(evt) {
 	
 	// Top Jobs
 	// Try to find top jobs
-	try {
-		// Collapse the keys and values of the jobtypes object for sorting convenience
-		var jobs = [];
-		$.each(course_stats['First degree']['Full-time']['jobtype'], function(k,v){ v['name'] = k;
-										   jobs.push(v); });
-	
-		// Underscore.js has a nice sortBy...
-		var sorted_jobs = _.sortBy(jobs, function(obj){ return obj['% of students'];  });
-	
-		// Grab the highest valued 3 jobtypes and write some list items
-		$.each(sorted_jobs.slice(-3).reverse(), function(){
-			$('#jobs ul').append('<li>'+this.name+' : '+this['% of students']+'%</li>');
-		});
-	} catch(err) {
-		$('#jobs').hide();
-	}
-	
-		
-	
+    // Collapse the keys and values of the jobtypes object for sorting convenience
+
+    var jobs = []
+    var jobHash = getField(course_stats, ['First degree', 'Full-time', 'jobtype'], null);
+    if (jobHash) {
+        $.each(jobHash,function(k, v) {v['name'] = k; jobs.push(v);});
+
+        // Underscore.js has a nice sortBy...
+        var sorted_jobs = _.sortBy(jobs, function(obj) { return obj['% of students']; });
+
+        // Grab the highest valued 3 jobtypes and write some list items
+        $.each(sorted_jobs.slice( - 3).reverse(), function() {
+            $('#jobs ul').append('<li>' + this.name + ' : ' + this['% of students'] + '%</li>');
+        });
+    } else {
+        $('#jobs').hide();
+    } 
 }
 
 $(document).ready(function(){

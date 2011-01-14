@@ -1,17 +1,19 @@
 body {
-background: #CCC;
-font: 100% Verdana, Arial, Helvetica, sans-serif;
+background: #399;
+font: 70% Verdana, Arial, Helvetica, sans-serif;
+font-weight: bold;
+color: #399;
 }
 div#label {
 	width: 100%;
 }
 
 div#label > div {
-	width: 16%;
+	width: 21%;
 	float: left;
 	margin: 3px 3px 3px 3px;
 	padding: 10px 3px 3px 3px;
-	height: 80px;
+	height: 90px;
 	text-align: center;
 	-webkit-border-radius: 20px;
 	-moz-border-radius: 20px;
@@ -20,23 +22,24 @@ div#label > div {
 }
 
 div#success {
-	background: #ea4e44;
+	background: #FFF;
 }
 
 div#satisfaction {
-	background: #93c11a;
+	background: #FFF;
 }
 
 div#destination {
-	background: #a693c6;
+	background: #FFF;
 }
 
 div#wage {
-	background: #72c5c6;
+	background: #FFF;
 }
 
 div#quality {
-	background: #f9b231;
+	background: #FFF;
 }
-
-
+div#data {
+	font: 100% Verdana, Arial, Helvetica, sans-serif;
+	font-weight: bolder;
