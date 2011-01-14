@@ -41,9 +41,11 @@ div#wage {
 div#quality {
 	background: #FFF;
 }
-div#data {
-	font: 100% Verdana, Arial, Helvetica, sans-serif;
+div#score {
+	font: 120% Verdana, Arial, Helvetica, sans-serif;
 	font-weight: bolder;
+        background: #FFF;
+        font-weight: 900;
 }
 h1#provider {
 	font: 150% Verdana, Arial, Helvetica, sans-serif;
