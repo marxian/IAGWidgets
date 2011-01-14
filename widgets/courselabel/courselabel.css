@@ -58,3 +58,10 @@ h1#provider {
 	color: #FFF;
 	line-height: 15px;
 }
+h1#course {
+	font: 150% Verdana, Arial, Helvetica, sans-serif;
+	font-weight: 900;
+	text-align: centre;
+	color: #FFF;
+	line-height: 15px;
+}
