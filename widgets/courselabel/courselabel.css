@@ -10,9 +10,9 @@ div#label {
 }
 
 div#label > div {
-	width: 21%;
+	width: 26%;
 	float: left;
-	margin: 3px 3px 3px 3px;
+	margin: 5px 5px 5px 5px;
 	padding: 10px 3px 3px 3px;
 	height: 90px;
 	text-align: center;
