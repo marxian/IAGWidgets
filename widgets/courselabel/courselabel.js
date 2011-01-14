@@ -74,7 +74,6 @@ iag.display = function(evt) {
 		try {
 			return calculators[calc](data,default_result);
 		} catch(err) {
-			console.log(calc);
 			return default_result;
 		}
 	}
